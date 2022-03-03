@@ -2,8 +2,10 @@ develop:
 	npx webpack serve
 
 build:
-	rm -rf dist
-	NODE_ENV=production npx webpack
+	npm run build
 
 lint:
-	npx eslint .
+	npx eslint .  
+
+fix: 
+    npx eslint . --fix
