@@ -1,9 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   devServer: {
     historyApiFallback: true,
@@ -14,7 +13,7 @@ module.exports = {
     compress: true,
     hot: true,
     port: 8080,
-},
+  },
   module: {
     rules: [
       {
@@ -27,6 +26,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new CleanWebpackPlugin(),
   ],
 };
