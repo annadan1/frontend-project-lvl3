@@ -1,0 +1,2 @@
+develop:
+	npx webpack serve
