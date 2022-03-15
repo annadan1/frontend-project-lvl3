@@ -1,56 +1,27 @@
-import onChange from 'on-change';
-import * as yup from 'yup';
+/* eslint-disable no-param-reassign */
 import _ from 'lodash';
+import * as yup from 'yup';
 
 const schema = yup.object().shape({
   input: yup.string().url().required(),
 });
 
-const validate = async (inputValue) => {
+const validate = async (inputValue, i18n) => {
   try {
     await schema.validate(inputValue);
     return '';
   } catch (e) {
-    return e.message;
+    return i18n.t('errors.url');
   }
 };
 
-const render = (elements) => (path, value, prevValue) => {
-  if (path === 'feedback.error') {
-    elements.feedback.textContent = value;
-    elements.input.classList.remove('is-invalid');
-    elements.input.classList.remove('text-success');
-    value === "" ? elements.input.classList.remove('is-invalid') :
-      elements.input.classList.add('is-invalid');
-  } if (path === 'feedback.success') {
-    elements.feedback.textContent = value;
-    elements.input.classList.remove('is-invalid');
-    elements.input.classList.remove('text-success');
-    value === '' ? elements.input.classList.add('text-success') :
-      elements.input.classList.add('is-invalid')
-  }
+const isValid = (state) => {
+  if (!_.isEmpty(state.feedback.valid) || !_.isEmpty(state.feedback.unique)) {
+    return false;
+  } return true;
 };
 
-const modelView = () => {
-  const elements = {
-    form: document.querySelector('.rss-form'),
-    input: document.getElementById('url-input'),
-    submitButton: document.querySelector('button[type="submit"]'),
-    feedback: document.querySelector('.feedback'),
-  };
-
-  const state = onChange({
-    valid: true,
-    form: {
-      input: '',
-    },
-    feedback: {
-      error: '',
-      success: '',
-    },
-    feed: [],
-  }, render(elements));
-
+const view = async (elements, state, i18n) => {
   elements.input.addEventListener('input', (e) => {
     e.preventDefault();
     state.form.input = e.target.value;
@@ -58,13 +29,16 @@ const modelView = () => {
 
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    state.feedback.error = await validate(state.form);
-    state.valid = _.isEmpty(state.feedback.error);
-    if (state.valid === true) {
-      state.feed.push(state.form.input);
-      console.log(state);
+    state.feedback.valid = await validate(state.form, i18n);
+    if (state.feeds.includes(state.form.input)) {
+      state.feedback.unique = i18n.t('errors.double');
+    } state.valid = isValid(state);
+    if (state.valid === false) {
+      return;
     }
+    state.feedback.success = i18n.t('success');
+    state.feeds.push(state.form.input);
   });
 };
 
-export default modelView;
+export default view;
