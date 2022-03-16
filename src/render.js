@@ -7,7 +7,7 @@ const clear = (elements) => {
 };
 
 const renderError = (elements, value) => {
-  if (value === '') {
+  if (value === null) {
     return;
   }
   clear(elements);
@@ -17,7 +17,7 @@ const renderError = (elements, value) => {
 };
 
 const renderSuccess = (elements, value) => {
-  if (value === '') {
+  if (value === null) {
     return;
   }
   clear(elements);

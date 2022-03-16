@@ -20,9 +20,9 @@ export default () => {
       input: '',
     },
     feedback: {
-      valid: '',
-      unique: '',
-      success: '',
+      valid: null,
+      unique: null,
+      success: null,
     },
     valid: true,
   }, render(elements));

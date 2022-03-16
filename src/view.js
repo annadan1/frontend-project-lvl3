@@ -15,15 +15,15 @@ const view = async (elements, state, i18n) => {
 
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    state.feedback.success = '';
+    state.feedback.success = null;
     state.feedback.valid = await validateUrl(state.form.input, i18n);
     state.feedback.unique = await validateUnique(state.form.input, state.feeds, i18n);
     state.valid = isValid(state);
     if (state.valid === false) {
       return;
     }
-    state.feedback.success = i18n.t('success');
     state.feeds.push(state.form.input);
+    state.feedback.success = i18n.t('success');
   });
 };
 
