@@ -29,15 +29,16 @@ const view = async (elements, state, i18n) => {
 
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    state.feedback.success = '';
     state.feedback.valid = await validate(state.form, i18n);
-    if (state.feeds.includes(state.form.input)) {
-      state.feedback.unique = i18n.t('errors.double');
-    } state.valid = isValid(state);
+    state.feedback.unique = state.feeds.includes(state.form.input) ? i18n.t('errors.double') : '';
+    state.valid = isValid(state);
     if (state.valid === false) {
       return;
     }
     state.feedback.success = i18n.t('success');
     state.feeds.push(state.form.input);
+    console.log(state);
   });
 };
 

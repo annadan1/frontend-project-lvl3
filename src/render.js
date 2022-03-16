@@ -7,14 +7,24 @@ const clear = (elements) => {
 };
 
 const renderError = (elements, value) => {
-  clear(elements);
-  elements.feedback.textContent = value;
   if (value === '') {
-    elements.input.classList.remove('is-invalid');
     return;
   }
+  clear(elements);
+  elements.feedback.textContent = value;
   elements.input.classList.add('is-invalid');
   elements.feedback.classList.add('text-danger');
+};
+
+const renderSuccess = (elements, value) => {
+  if (value === '') {
+    return;
+  }
+  clear(elements);
+  elements.feedback.textContent = value;
+  elements.feedback.classList.add('text-success');
+  elements.input.value = '';
+  elements.input.focus();
 };
 
 const render = (elements) => (path, value) => {
@@ -25,11 +35,7 @@ const render = (elements) => (path, value) => {
     renderError(elements, value);
   }
   if (path === 'feedback.success') {
-    clear(elements);
-    elements.feedback.textContent = value;
-    elements.feedback.classList.add('text-success');
-    elements.input.value = '';
-    elements.input.focus();
+    renderSuccess(elements, value);
   }
 };
 
