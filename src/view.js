@@ -16,9 +16,8 @@ const validate = async (inputValue, i18n) => {
 };
 
 const isValid = (state) => {
-  if (!_.isEmpty(state.feedback.valid) || !_.isEmpty(state.feedback.unique)) {
-    return false;
-  } return true;
+  const errorMessages = [state.feedback.valid, state.feedback.unique];
+  return errorMessages.every(_.isEmpty);
 };
 
 const view = async (elements, state, i18n) => {
@@ -38,7 +37,6 @@ const view = async (elements, state, i18n) => {
     }
     state.feedback.success = i18n.t('success');
     state.feeds.push(state.form.input);
-    console.log(state);
   });
 };
 
