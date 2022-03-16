@@ -1,8 +1,8 @@
 export default {
   translation: {
     errors: {
-      url: 'The link must be a valid URL',
-      double: 'RSS already exists',
+      link: 'The link must be a valid URL',
+      unique: 'RSS already exists',
     },
     success: 'RSS successfully loaded',
   },

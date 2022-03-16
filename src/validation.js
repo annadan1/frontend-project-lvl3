@@ -6,7 +6,7 @@ const validateUrl = async (link, i18n) => {
     await schema.validate(link);
     return '';
   } catch (e) {
-    return i18n.t('errors.url');
+    return i18n.t('errors.link');
   }
 };
 
@@ -16,7 +16,7 @@ const validateUnique = async (link, feeds, i18n) => {
     await schema.validate(link);
     return '';
   } catch (e) {
-    return i18n.t('errors.double');
+    return i18n.t('errors.unique');
   }
 };
 
