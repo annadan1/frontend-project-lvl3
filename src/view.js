@@ -1,19 +1,6 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
-import * as yup from 'yup';
-
-const schema = yup.object().shape({
-  input: yup.string().url().required(),
-});
-
-const validate = async (inputValue, i18n) => {
-  try {
-    await schema.validate(inputValue);
-    return '';
-  } catch (e) {
-    return i18n.t('errors.url');
-  }
-};
+import { validateUrl, validateUnique } from './validation.js';
 
 const isValid = (state) => {
   const errorMessages = [state.feedback.valid, state.feedback.unique];
@@ -29,8 +16,8 @@ const view = async (elements, state, i18n) => {
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
     state.feedback.success = '';
-    state.feedback.valid = await validate(state.form, i18n);
-    state.feedback.unique = state.feeds.includes(state.form.input) ? i18n.t('errors.double') : '';
+    state.feedback.valid = await validateUrl(state.form.input, i18n);
+    state.feedback.unique = await validateUnique(state.form.input, state.feeds, i18n);
     state.valid = isValid(state);
     if (state.valid === false) {
       return;
