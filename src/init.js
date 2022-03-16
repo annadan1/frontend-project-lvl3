@@ -16,12 +16,8 @@ export default () => {
   const state = onChange({
     lng: 'ru',
     feeds: [],
-    form: {
-      input: '',
-    },
     feedback: {
-      valid: null,
-      unique: null,
+      error: null,
       success: null,
     },
     valid: true,

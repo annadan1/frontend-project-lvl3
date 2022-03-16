@@ -28,10 +28,7 @@ const renderSuccess = (elements, value) => {
 };
 
 const render = (elements) => (path, value) => {
-  if (path === 'feedback.valid') {
-    renderError(elements, value);
-  }
-  if (path === 'feedback.unique') {
+  if (path === 'feedback.error') {
     renderError(elements, value);
   }
   if (path === 'feedback.success') {

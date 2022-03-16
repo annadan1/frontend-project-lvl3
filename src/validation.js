@@ -1,23 +1,13 @@
 import * as yup from 'yup';
 
-const validateUrl = async (link, i18n) => {
-  const schema = yup.string().url().required();
+const validate = async (link, feeds, i18n) => {
+  const schema = yup.string().url(i18n.t('errors.link')).notOneOf(feeds, i18n.t('errors.unique')).required();
   try {
     await schema.validate(link);
     return null;
   } catch (e) {
-    return i18n.t('errors.link');
+    return e.message;
   }
 };
 
-const validateUnique = async (link, feeds, i18n) => {
-  const schema = yup.string().notOneOf(feeds);
-  try {
-    await schema.validate(link);
-    return null;
-  } catch (e) {
-    return i18n.t('errors.unique');
-  }
-};
-
-export { validateUrl, validateUnique };
+export default validate;

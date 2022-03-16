@@ -1,29 +1,20 @@
 /* eslint-disable no-param-reassign */
-import _ from 'lodash';
-import { validateUrl, validateUnique } from './validation.js';
+import validate from './validation.js';
 
-const isValid = (state) => {
-  const errorMessages = [state.feedback.valid, state.feedback.unique];
-  return errorMessages.every(_.isEmpty);
+const runValidation = async (state, i18n, link) => {
+  state.feedback.error = await validate(link, state.feeds, i18n);
+  if (state.feedback.error !== null) {
+    state.feedback.success = null;
+    return;
+  }
+  state.feeds.push(link);
+  state.feedback.success = i18n.t('success');
 };
 
-const view = async (elements, state, i18n) => {
-  elements.input.addEventListener('input', (e) => {
+const view = (elements, state, i18n) => {
+  elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
-    state.form.input = e.target.value;
-  });
-
-  elements.form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    state.feedback.success = null;
-    state.feedback.valid = await validateUrl(state.form.input, i18n);
-    state.feedback.unique = await validateUnique(state.form.input, state.feeds, i18n);
-    state.valid = isValid(state);
-    if (state.valid === false) {
-      return;
-    }
-    state.feeds.push(state.form.input);
-    state.feedback.success = i18n.t('success');
+    runValidation(state, i18n, elements.input.value);
   });
 };
 
