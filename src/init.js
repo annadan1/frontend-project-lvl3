@@ -15,12 +15,13 @@ export default () => {
   };
   const state = onChange({
     lng: 'ru',
-    feeds: [],
+    links: [],
     feedback: {
       error: null,
       success: null,
     },
     valid: true,
+    feeds: [],
   }, render(elements));
 
   const i18nextInstance = i18next.createInstance();
