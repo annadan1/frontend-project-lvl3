@@ -21,6 +21,7 @@ const runValidation = async (state, i18n, link) => {
   const response = await makeRequest(state, i18n, link);
   state.feeds.push(parser(state.feedback, response.contents, i18n));
   state.links.push(link);
+  state.feedback.success = null;
   state.feedback.success = i18n.t('success');
 };
 

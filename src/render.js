@@ -44,6 +44,50 @@ const createTitle = (field, title) => {
   h2.textContent = title;
 };
 
+const closeModal = (modal, body, div) => {
+  body.classList.remove('modal-open');
+  modal.classList.remove('show');
+  modal.setAttribute('style', 'display: none;');
+  body.setAttribute('style', '');
+  div.remove();
+};
+
+const changeLink = (link) => {
+  link.classList.remove('fw-bold');
+  link.classList.add('fw-normal', 'link-secondary');
+};
+
+const renderModal = (postTitle, postDescription, postLink, link) => {
+  const modal = document.getElementById('modal');
+  const body = document.querySelector('body');
+  body.classList.add('modal-open');
+  body.setAttribute('style', 'overflow: hidden; padding-right: 17px;');
+  const modalHeader = document.querySelector('.modal-header');
+  const modalBody = document.querySelector('.modal-body');
+  const modalFooter = document.querySelector('.modal-footer');
+  modal.classList.add('show');
+  modal.setAttribute('style', 'display: block;');
+  modal.setAttribute('role', 'dialog');
+  modalHeader.querySelector('.modal-title').textContent = postTitle;
+  modalBody.textContent = postDescription;
+  modalFooter.querySelector('a').setAttribute('href', postLink);
+  const div = document.createElement('div');
+  body.appendChild(div);
+  div.classList.add('modal-backdrop', 'fade', 'show');
+
+  modalHeader.querySelector('button').addEventListener('click', (e) => {
+    e.preventDefault();
+    closeModal(modal, body, div);
+    changeLink(link);
+  });
+
+  modalFooter.querySelector('button').addEventListener('click', (e) => {
+    e.preventDefault();
+    closeModal(modal, body, div);
+    changeLink(link);
+  });
+};
+
 const renderPosts = (fieldPost, posts) => {
   const ul = fieldPost.querySelector('.list-group');
   posts.forEach((post) => {
@@ -69,6 +113,16 @@ const renderPosts = (fieldPost, posts) => {
     button.setAttribute('data-bs-toggle', 'modal');
     button.setAttribute('data-bs-target', '#modal');
     button.textContent = 'Просмотр';
+
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderModal(postTitle, postDescription, postLink, link);
+      changeLink(link);
+    });
+
+    link.addEventListener('click', () => {
+      changeLink(link);
+    });
   });
 };
 
