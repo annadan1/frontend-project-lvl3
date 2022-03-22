@@ -19,7 +19,6 @@ const getNewPost = async (state, i18n) => {
     const newFeed = parser(response.contents, state.feedback, i18n);
     const newPosts = _.differenceBy(newFeed.feedItems, state.posts, 'postLink');
     if (newPosts.length > 0) {
-      state.newPosts = [];
       state.newPosts = [...newPosts];
       state.posts = [...state.newPosts, ...state.posts];
     }
@@ -30,8 +29,7 @@ const getNewPost = async (state, i18n) => {
 const getFeeds = async (state, i18n, link) => {
   const response = await makeRequest(state, i18n, link);
   const newFeed = parser(response.contents, state.feedback, i18n);
-  state.newFeed = [];
-  state.newFeed.push(newFeed);
+  state.newFeed = [newFeed];
   state.feeds = [...state.newFeed, ...state.feeds];
 };
 
