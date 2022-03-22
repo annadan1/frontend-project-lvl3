@@ -21,7 +21,10 @@ export default () => {
       success: null,
     },
     valid: true,
+    newFeed: [],
+    newPosts: [],
     feeds: [],
+    posts: [],
   }, render(elements));
 
   const i18nextInstance = i18next.createInstance();

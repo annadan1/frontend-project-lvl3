@@ -6,7 +6,7 @@ const getItem = (element) => ({
   postId: element.querySelector('guid')?.textContent,
 });
 
-export default (feedback, data, i18n) => {
+export default (data, feedback, i18n) => {
   const domParser = new DOMParser();
   const xmlDocument = domParser.parseFromString(data, 'application/xml');
   if (xmlDocument.querySelector('parsererror')) {
