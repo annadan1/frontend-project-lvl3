@@ -9,7 +9,7 @@ const makeRequest = async (state, i18n, link) => {
     const response = await axios.get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`);
     return response.data;
   } catch (e) {
-    state.error = i18n.t('errors.netError');
+    state.feedback.error = i18n.t('errors.netError');
     return i18n.t('errors.netError');
   }
 };
