@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 const getItem = (element) => ({
-  postTitle: element.querySelector('title').textContent,
-  postDescription: element.querySelector('description').textContent,
-  postLink: element.querySelector('link').textContent,
+  postTitle: element.querySelector('title')?.textContent,
+  postDescription: element.querySelector('description')?.textContent,
+  postLink: element.querySelector('link')?.textContent,
   postId: element.querySelector('guid')?.textContent,
 });
 
