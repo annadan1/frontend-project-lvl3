@@ -1,14 +1,16 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { SourceMapDevToolPlugin } = require('webpack');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import pkg from 'webpack';
 
-module.exports = {
+const { SourceMapDevToolPlugin } = pkg;
+
+export default {
   mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   devServer: {
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(path.resolve(), 'dist'),
     },
     open: true,
     compress: true,
