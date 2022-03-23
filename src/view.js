@@ -40,6 +40,7 @@ const runValidation = async (state, i18n, link) => {
     state.feedback.success = null;
     return;
   }
+  state.input.readonly = true;
   await getFeeds(state, i18n, link);
   state.links.push(link);
   await getNewPost(state, i18n);
@@ -47,6 +48,7 @@ const runValidation = async (state, i18n, link) => {
     state.feedback.success = null;
     state.feedback.success = i18n.t('success');
   }
+  state.input.readonly = false;
 };
 
 const view = (elements, state, i18n) => {

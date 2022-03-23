@@ -130,7 +130,6 @@ const renderPosts = (elements, posts) => {
 };
 
 const renderFeeds = (elements, feeds) => {
-  elements.input.classList.add('readonly');
   const fieldFeed = elements.feeds;
   createTitle(fieldFeed, 'Фиды');
   createTitle(elements.posts, 'Посты');
@@ -149,7 +148,14 @@ const renderFeeds = (elements, feeds) => {
     p.classList.add('m-0', 'small', 'text-black-50');
     p.textContent = feedDescription;
   });
-  elements.input.classList.remove('readonly');
+};
+
+const blockInput = (elements, value) => {
+  if (value === true) {
+    elements.input.setAttribute('readonly', value);
+  } else {
+    elements.input.removeAttribute('readonly');
+  }
 };
 
 const render = (elements) => (path, value) => {
@@ -164,6 +170,9 @@ const render = (elements) => (path, value) => {
   }
   if (path === 'newPosts') {
     renderPosts(elements, value.reverse());
+  }
+  if (path === 'input.readonly') {
+    blockInput(elements, value);
   }
 };
 
