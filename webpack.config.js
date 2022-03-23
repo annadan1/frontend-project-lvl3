@@ -37,7 +37,7 @@ module.exports = {
       filename: '[file].map',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './index.html',
     }),
   ],
 };
