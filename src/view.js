@@ -43,8 +43,10 @@ const runValidation = async (state, i18n, link) => {
   await getFeeds(state, i18n, link);
   state.links.push(link);
   await getNewPost(state, i18n);
-  state.feedback.success = null;
-  state.feedback.success = i18n.t('success');
+  if (state.feedback.error === null) {
+    state.feedback.success = null;
+    state.feedback.success = i18n.t('success');
+  }
 };
 
 const view = (elements, state, i18n) => {
