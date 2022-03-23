@@ -6,7 +6,8 @@ import parser from './parser.js';
 
 const makeRequest = async (state, i18n, link) => {
   try {
-    return await (await axios.get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`)).data;
+    const response = await axios.get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`)
+    return response.data;
   } catch (e) {
     state.error = i18n('errors.netError');
     return i18n('errors.netError');
