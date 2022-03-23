@@ -130,6 +130,7 @@ const renderPosts = (elements, posts) => {
 };
 
 const renderFeeds = (elements, feeds) => {
+  elements.input.classList.add('readonly');
   const fieldFeed = elements.feeds;
   createTitle(fieldFeed, 'Фиды');
   createTitle(elements.posts, 'Посты');
@@ -148,6 +149,7 @@ const renderFeeds = (elements, feeds) => {
     p.classList.add('m-0', 'small', 'text-black-50');
     p.textContent = feedDescription;
   });
+  elements.input.classList.remove('readonly');
 };
 
 const render = (elements) => (path, value) => {
