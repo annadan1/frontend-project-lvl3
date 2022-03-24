@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const clear = (elements) => {
   elements.input.classList.remove('is-invalid');
   elements.input.classList.remove('text-success');
