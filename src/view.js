@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import _ from 'lodash';
 import axios from 'axios';
 import validate from './validation.js';

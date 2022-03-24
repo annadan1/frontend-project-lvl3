@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const clear = (elements) => {
   elements.input.classList.remove('is-invalid');
   elements.input.classList.remove('text-success');
@@ -152,8 +153,10 @@ const renderFeeds = (elements, feeds) => {
 const blockInput = (elements, value) => {
   if (value === true) {
     elements.input.setAttribute('readonly', value);
+    elements.submitButton.setAttribute('disabled', '');
   } else {
     elements.input.removeAttribute('readonly');
+    elements.submitButton.removeAttribute('disabled');
   }
 };
 
